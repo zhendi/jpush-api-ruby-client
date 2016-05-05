@@ -63,7 +63,7 @@ module JPush
         end
       end
 
-      class VIPAppKeyError < JPushResponseError
+      class AppKeyError < JPushResponseError
         def initialize(http_code, error_code, error_message)
           super(http_code, error_code, error_message)
         end
@@ -71,7 +71,11 @@ module JPush
 
       class TimeOutError < JPushError
         def initialize(error)
-          super("#{error.class} was raised, please rescue it")
+          super("#{error.class} raised")
+        end
+
+        def to_s
+          @message
         end
       end
 

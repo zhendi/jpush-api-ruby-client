@@ -6,5 +6,6 @@ module JPush
   require 'jpush/config'
   require 'jpush/utils/helper'
   require 'jpush/utils/http'
+  require 'jpush/utils/log'
 
 end

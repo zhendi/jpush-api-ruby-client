@@ -8,12 +8,13 @@ module JPush
         @http_code = raw_response.code.to_i
         @body = parse_body(raw_response.body)
 
+        Utils::Log.log_response(@http_code, @body)
+
         unless raw_response.kind_of? Net::HTTPSuccess
           begin
             build_error
-          rescue Utils::Exceptions::VIPAppKeyError => e
-            puts "\nVIPAppKeyError: #{e}"
-            puts "\t#{e.backtrace.join("\n\t")}"
+          rescue Utils::Exceptions::AppKeyError => e
+            Utils::Log.log_error "AppKeyError: #{e}"
           end
         end
       end
@@ -36,7 +37,7 @@ module JPush
 
           case error_code
           when 2003
-            raise Utils::Exceptions::VIPAppKeyError.new(http_code, error_code, error_message)
+            raise Utils::Exceptions::AppKeyError.new(http_code, error_code, error_message)
           else
             raise Utils::Exceptions::JPushResponseError.new(http_code, error_code, error_message)
           end

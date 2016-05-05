@@ -27,6 +27,8 @@ $test_ios_registration_id = conf[:registration_ids][:ios]
 $test_common_tag = conf[:tags][:common]
 $test_report_delay_time = conf[:report_delay_time].to_i
 
+JPush::Utils::Log.log_level = Logger::WARN
+
 class JPush::Test < MiniTest::Test
 
   @@jpush = JPush::Client.new($test_app_key, $test_master_secret)

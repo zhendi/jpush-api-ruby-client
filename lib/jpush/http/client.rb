@@ -22,6 +22,8 @@ module JPush
       end
 
       def send_request(method, url, params: nil, body: nil, headers: {}, opts: {})
+        Utils::Log.log_request(url, method, params, body)
+
         raw_response = Utils::Http.new(
           method.to_sym,
           url,
